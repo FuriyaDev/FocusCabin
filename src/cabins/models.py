@@ -46,6 +46,7 @@ class CabineAmenity(BaseModel):
     amenity = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     image = models.FileField(upload_to='cabine_amenities/')
+    is_available = models.BooleanField(default=True)
     description = models.TextField(blank=True, null=True)
 
     class Meta:
@@ -56,9 +57,10 @@ class CabineAmenity(BaseModel):
 class CabineBooking(BaseModel):
     cabine = models.ForeignKey(Cabine, on_delete=models.CASCADE, related_name='bookings')
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='cabine_bookings')
-    start_date = models.DateField()
-    end_date = models.DateField()
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    amenities = models.ManyToManyField(CabineAmenity, related_name='bookings')
 
     class Meta:
         verbose_name = 'Cabine Booking'
