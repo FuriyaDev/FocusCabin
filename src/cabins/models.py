@@ -17,7 +17,7 @@ class CabineClass(BaseModel):
 # CABINE MODEL
 class Cabine(BaseModel):
     number = models.IntegerField()
-    description = models.CharField()
+    description = models.CharField(blank=True, null=True)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     capacity = models.PositiveIntegerField()
     cabine_class = models.ForeignKey(CabineClass, on_delete=models.CASCADE)    
